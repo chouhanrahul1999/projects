@@ -108,6 +108,16 @@ app.post("/room", middleware, async (req, res) => {
   }
 });
 
+app.get("/rooms", middleware, async (req, res) => {
+  // @ts-ignore
+  const userId = req.userId;
+  const rooms = await prismaClient.room.findMany({
+    where: { adminId: userId },
+    orderBy: { createAt: "desc" },
+  });
+  res.json({ rooms });
+});
+
 app.get("/chats/:roomId", async (req, res) => {
   try {
     const roomId = Number(req.params.roomId);

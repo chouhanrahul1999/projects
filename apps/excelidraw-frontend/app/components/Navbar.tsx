@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Pencil } from 'lucide-react';
 import { Button } from '@repo/ui/button';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +17,17 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Check login status on mount
+    setLoggedIn(!!localStorage.getItem('token'));
+  }, []);
+
+  const handleSignout = () => {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    window.location.reload();
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -28,12 +42,24 @@ const Navbar = () => {
             <span className="text-xl font-bold text-gray-900">Excelidraw</span>
           </div>
           
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4">
             <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-            
-            <button className="bg-gray-900 text-white px-6 py-2.5 rounded-xl hover:bg-gray-800 transition-colors">
-              Get Started
-            </button>
+            {loggedIn ? (
+              <button
+                className="bg-gray-900 text-white px-6 py-2.5 rounded-xl hover:bg-gray-800 transition-colors"
+                onClick={handleSignout}
+              >
+                Signout
+              </button>
+            ) : (
+              <>
+                <button className="bg-gray-900 text-white px-6 py-2.5 rounded-xl hover:bg-gray-800 transition-colors"
+                  onClick={() => router.push('/signin')}
+                >
+                  Signin
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

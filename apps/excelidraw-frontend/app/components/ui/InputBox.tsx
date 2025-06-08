@@ -1,25 +1,19 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 interface InputBoxProps {
   label: string;
   placeholder: string;
   type: string;
+  ref: any;
   onChange?: () => void;
 }
 
 
-export const InputBox = (props: InputBoxProps) => {
-  return (
-    <div>
-      <div className="text-md font-medium text-left pt-3 ml-2 text-gray-900">
-        {props.label}
-      </div >
-      <input
-        onChange={props.onChange}
-        placeholder={props.placeholder}
-        type={props.type}
-        className="w-full px-4 py-2 border border-gray-400 rounded-lg placeholder:text-gray-500"
-      />
+export const InputBox = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement> & { label: string }>(
+  ({ label, ...props }, ref) => (
+    <div className="flex flex-col gap-1">
+      <label className="text-sm font-medium">{label}</label>
+      <input ref={ref} {...props} className="border rounded px-3 py-2 border-gray-400" />
     </div>
-  );
-};
+  )
+);

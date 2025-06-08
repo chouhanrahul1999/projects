@@ -1,8 +1,9 @@
 import React from "react";
 import { ArrowRight, Sparkles, Users } from "lucide-react";
-import { Button } from "@repo/ui/button";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+   const router = useRouter();
   return (
     <section className="pt-32 pb-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,13 +31,17 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="group bg-gray-900 text-white px-8 py-4 rounded-2xl font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center">
-                Start Creating Free
+              <button className="group bg-gray-900 text-white px-8 py-4 rounded-2xl font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center"
+              onClick={() => router.push("/room")}
+              >
+                Start Creating
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-               <button className="flex text-gray-600 items-center justify-center gap-2 px-8 py-4 rounded-2xl font-medium border-2 border-gray-200 hover:border-gray-300 transition-colors duration-300">
+               <button className="flex text-gray-600 items-center justify-center gap-2 px-8 py-4 rounded-2xl font-medium border-2 border-gray-200 hover:border-gray-300 transition-colors duration-300"
+               onClick={() => router.push("/signup")}
+               >
                 <Users className="w-5 h-5 text-gray-600" />
-                Join Community
+                Create Account
               </button>
             </div>
 

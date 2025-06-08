@@ -12,13 +12,13 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@types/node": "^22.15.3"
+    "@types/node": "^22.15.3",
+    "prisma": "^6.9.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.7.0",
-    "prisma": "^6.7.0"
+    "@prisma/client": "^6.9.0"
   }
 }
